@@ -19,7 +19,7 @@ const user = this.userservice.login(this.email,this.password);
 if(!user){
   console.log("No user found")
 }else{
-  window.location.href = "/userlist";
+  window.location.href = "userlist";
 }
   }
 
