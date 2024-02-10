@@ -13,7 +13,6 @@ export class CallserviceService {
   stream:any;
   called:Boolean = false;
   mystream:any;
-  myid = localStorage.getItem("myid");
    peer:any;
   connectToPeer(myid:string,callerid:string){
     this.conn = this.peer.connect(callerid);

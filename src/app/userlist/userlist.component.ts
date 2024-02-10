@@ -14,6 +14,7 @@ export class UserlistComponent implements OnInit {
   userid:any;
   ngOnInit(): void {
     this.userid = localStorage.getItem('myid') != null ?localStorage.getItem('myid'): '';
+    this.callservice.openconnection(this.userid);
 
   }
 
