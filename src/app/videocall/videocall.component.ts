@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataConnection, Peer} from 'peerjs';
+import { CallserviceService } from '../callservice.service';
 
 @Component({
   selector: 'app-videocall',
@@ -9,20 +10,11 @@ import {DataConnection, Peer} from 'peerjs';
 export class VideocallComponent implements OnInit {
 
   
-  conn:any;
-  constructor() { 
-  }
-  connectToPeer(){
-    const peer = new Peer("aniket");
-    this.conn = peer.connect("surve");
-    this.conn.on('open',()=>{
-     this.conn.send("Hello!!");
-    }) 
+  constructor(public callservice:CallserviceService) { 
   }
 
 
   ngOnInit(): void {
-    this.connectToPeer();
   }
 
 

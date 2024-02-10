@@ -1,1 +1,30 @@
-<p>videocall works!</p>
+<div style="display: flex; flex-direction: column; height: 100vh;">
+
+<div class="" style=" padding-bottom: 50px; padding-top: 50px; display: flex; flex-direction: row; margin-left: 20px;margin-right: 20px;">
+
+    <div class="videos" style="min-height: 70vh; width: 70%;">
+
+        <div class="vid1" style="border: 1px solid red; width: 100%; height: 100%; position: relative;">
+            <video [srcObject]="this.callservice.stream" autoplay width="100%" height="100%" style="object-fit: cover; height: 100%; width: 100%;"></video>       
+        <div class="vid2" style="border: 1px solid green; width: 30%; height: 30%;position: absolute;
+        bottom: 0;
+        right: 0;">
+    <video [srcObject]="this.callservice.mystream" autoplay width="100%" height="100%" style="object-fit: cover; height: 100%; width: 100%;">
+    </video>    
+    </div>
+        </div>
+    </div>
+    <div class="chat" style="width: 30%; border: 1px solid black;">
+    </div>
+</div>
+
+
+<div style="display: flex; flex-direction: row;text-align: center; justify-content: center;" class="controls">
+
+    <button class="btn btn-outline-dark"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+    <button class="btn btn-outline-dark"><i class="fa fa-video-camera" aria-hidden="true"></i></button>
+    <button class="btn btn-outline-dark"><i class="fa fa-phone" aria-hidden="true"></i></button>
+
+</div>
+
+</div>

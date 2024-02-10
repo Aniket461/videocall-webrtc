@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CallserviceService } from '../callservice.service';
+import { UserserviceService } from '../userservice.service';
 
 @Component({
   selector: 'app-userlist',
@@ -8,9 +9,12 @@ import { CallserviceService } from '../callservice.service';
 })
 export class UserlistComponent implements OnInit {
 
-  constructor(public callservice:CallserviceService) { }
+  constructor(public callservice:CallserviceService, public userservice:UserserviceService) { }
 
+  userid:any;
   ngOnInit(): void {
+    this.userid = localStorage.getItem('myid') != null ?localStorage.getItem('myid'): '';
+
   }
 
 
@@ -25,11 +29,8 @@ export class UserlistComponent implements OnInit {
     this.callservice.sendMessages(this.message);
   }
 
-  async VideoCall(){
-  //  this.stream =  await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-  //  console.log(this.stream);
-  //  //this.stream = window.URL.createObjectURL(this.stream);
-    this.callservice.VideoCall(this.callerid);
+  async VideoCall(userid:string){
+    this.callservice.VideoCall(userid);
   }
   connect(){
     localStorage.setItem("myid",this.id);

@@ -7,8 +7,11 @@ import { UserlistComponent } from './userlist/userlist.component';
 export class CallserviceService {
 
   constructor() { }
+
+
   conn:any;
   stream:any;
+  called:Boolean = false;
   mystream:any;
   myid = localStorage.getItem("myid");
    peer:any;
@@ -22,6 +25,7 @@ export class CallserviceService {
 
   openconnection(myid:string){
     this.peer= new Peer(myid);
+    console.log(this.peer);
     this.recieveCall();
     this.RecieveCall();
   }
@@ -53,6 +57,7 @@ export class CallserviceService {
           call.on("stream", (remoteStream:any) => {
             console.log(remoteStream);
             this.stream = remoteStream;
+            this.called = true;
         })
     });
   }
@@ -66,6 +71,7 @@ console.log(this.mystream);
         call.on("stream", (remoteStream:any) => {
           this.stream = remoteStream;
           this.RecieveCall();
+          this.called = true;
         })
       }
 
