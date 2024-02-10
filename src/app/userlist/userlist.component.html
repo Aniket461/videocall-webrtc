@@ -1,0 +1,37 @@
+
+
+<div>
+
+    My name: <input type="text" [(ngModel)]="name">
+    My Id : <input type="text" [(ngModel)]="id">
+    Caller ID: <input type="text" [(ngModel)]="callerid">
+    <button (click)="call()">Call</button>
+<button (click)="connect()">Connect</button>
+
+
+<input type="text" [(ngModel)]="message">
+<button (click)="sendMessage()">Send</button>
+
+
+    <div style="width: 300px; height: 200px; border: 1px solid black; margin-top: 20px;">
+        Caller Stream
+    <video [srcObject]="this.callservice.stream" autoplay width="300px" height="200px"></video>
+
+    <button (click)="VideoCall()">Video Call</button>
+</div>
+
+<div style="width: 300px; height: 200px; border: 1px solid black; margin-top: 80px;">
+    My stream
+    <video [srcObject]="this.callservice.mystream" autoplay width="300px" height="200px">
+    </video>
+</div>
+
+
+
+    <div *ngFor="let user of userlist" style="display: flex; flex-direction: row;">
+
+        <p style="width: 40%;">{{user.name}}</p>
+        <p>{{user.id}}</p>
+    
+    </div>
+</div>
