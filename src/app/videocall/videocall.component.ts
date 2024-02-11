@@ -23,12 +23,15 @@ audioOn :Boolean = true;
     this.callservice.mystream.removeTrack(this.callservice.videotrack);
     (<HTMLVideoElement>document.getElementById('mystream')).srcObject = null;
     this.videoOn = false;
+
+    this.callservice.muteAudio();
   }
 
   addVideo(){
     this.callservice.mystream.addTrack(this.callservice.videotrack);
     (<HTMLVideoElement>document.getElementById('mystream')).srcObject = this.callservice.mystream;
     this.videoOn = true;
+    this.callservice.muteAudio();
   }
 
   ToggleAudio(){
@@ -40,15 +43,20 @@ audioOn :Boolean = true;
       this.addAudio();
       this.audioOn = !this.audioOn
     }
+
   }
   
   removeAudio(){
     console.log(this.callservice.mystream.getVideoTracks())
     this.callservice.mystream.removeTrack(this.callservice.audiotrack);
+    
+    this.callservice.muteAudio();
     }
 
   addAudio(){
     this.callservice.mystream.addTrack(this.callservice.audiotrack);
+    
+    this.callservice.muteAudio();
      }
 
      closeCall(){

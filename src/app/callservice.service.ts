@@ -44,6 +44,16 @@ export class CallserviceService {
     
   }
 
+  muteAudio(){
+    for (let conns in this.peer.connections) {
+      this.peer.connections[conns].forEach((conn:any) => {
+    console.log(conn.peerConnection.getSenders())
+        const sender = conn.peerConnection.getSenders();
+        sender[1].replaceTrack(this.mystream.getVideoTracks()[0]);
+      sender[0].replaceTrack(this.mystream.getAudioTracks()[0]);
+      })}
+  }
+
   closeCall(){
     console.log(this.peer.connections);
     for (let conns in this.peer.connections) {
@@ -57,6 +67,7 @@ export class CallserviceService {
       this.mystream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
       this.stream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
       window.location.href = "/userlist"
+    
   }
   recieveCall(){
     if(this.peer != undefined){
@@ -105,6 +116,8 @@ export class CallserviceService {
     const stream = await navigator.mediaDevices.getUserMedia(
       { video: true, audio: true });
 this.mystream = stream;
+
+this.called = true;
 this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
 console.log(this.mystream);
