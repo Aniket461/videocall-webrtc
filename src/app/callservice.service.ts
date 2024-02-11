@@ -76,8 +76,6 @@ export class CallserviceService {
   }
   }
   async RecieveCall(){
-
-
     this.peer.on("call", async (call:any) => {
       var acceptCall = confirm(localStorage.getItem("name")+"is calling you, Accept?");
       if(acceptCall){
@@ -118,12 +116,6 @@ this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
 console.log(this.mystream);
         const call = this.peer.call(callerid,stream);
-        call.on('close',()=>{
-          window.location.href = "/userlist"
-        })
-        call.on('error',()=>{
-          alert("error");
-        })
         call.on("stream", (remoteStream:any) => {
           this.stream = remoteStream;
           this.RecieveCall();
