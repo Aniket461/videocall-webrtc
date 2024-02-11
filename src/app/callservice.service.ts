@@ -77,9 +77,6 @@ export class CallserviceService {
   }
   async RecieveCall(){
     this.peer.on("call", async (call:any) => {
-      var acceptCall = confirm(localStorage.getItem("name")+"is calling you, Accept?");
-      if(acceptCall){
-  
       let stream = await navigator.mediaDevices.getUserMedia(
         { video: true, audio: true })
         this.myCall = call;
@@ -102,10 +99,6 @@ export class CallserviceService {
             this.stream = remoteStream;
             this.called = true;
         })
-      }
-      else{
-        alert("Call Declined");
-      }
     });
   }
   async VideoCall(callerid:string){
