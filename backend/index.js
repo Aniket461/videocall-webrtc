@@ -88,6 +88,8 @@ app.post('/login',async (req,res)=>{
     // console.log(await user.find({email:email}));
 
 })
-app.listen(3000,()=>{
-    console.log(`The backend is running on port 3000`);
+
+const port =  process.env.PORT ||3000 
+app.listen( port,()=>{
+    console.log(`The backend is running on port `);
 })
