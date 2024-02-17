@@ -1,11 +1,27 @@
 .vid1, .vid2{
-    border-radius: 20px;
+    border-radius: 0px;
+    background-image: url("../../assets/placeholder.png");
+background-repeat: no-repeat;
+background-position: center;
+background-color: rgb(39 37 37);
+border: 1px solid white;
+background-size: contain;
 }
 .chat{
-    border-radius: 20px;
+    border: 1px solid white;
+background-color: rgb(39 37 37);
+    input{
+        border-radius: 0px;
+    }
+    button{
+        border-radius: 0px;
+    }
 }
 
 .controls {
+    background-color:rgb(39 37 37);
+    padding-bottom: 10px;
+    padding-top: 10px;
     button{
         margin: 5px;
     }

@@ -1,9 +1,44 @@
 .userlist{
+
+    padding-left: 5%;
+    padding-right: 5%;
     .fa-user-circle{
         font-size: 2em;
     }
+
+    .eachuser{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 1px 2px 3px 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 7px;
+    justify-content: space-between;
     div{
-        width: 20%;
-        text-align: center;
+        padding-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{ font-size: 1.1em;
+            margin: 0px;
+        }
     }
 }
+}
+.lastseen{font-size: 0.85em;
+}
+
+
+@media (max-width:450px)  { 
+    .inlineblock{
+
+        margin: auto;
+
+    }
+ }
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

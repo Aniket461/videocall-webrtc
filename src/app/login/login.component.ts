@@ -15,12 +15,8 @@ export class LoginComponent implements OnInit {
   password = '';
 
   Login(){
-const user = this.userservice.login(this.email,this.password);
-if(!user){
-  console.log("No user found")
-}else{
-  window.location.href = "/userlist";
-}
+ this.userservice.login(this.email,this.password);
+
   }
 
   ngOnInit(): void {

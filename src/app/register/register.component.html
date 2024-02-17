@@ -8,18 +8,18 @@
     <form style="margin-bottom: 10px;">
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
+            <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" [(ngModel)]="name">
           </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="email">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
         </div>
       </form>
-      <div style="text-align: center;"><button type="button" class="btn btn-outline-dark">Register <i class="fa fa-user" aria-hidden="true"></i></button>
+      <div style="text-align: center;"><button type="button" class="btn btn-outline-dark" (click)="Register()" >Register <i class="fa fa-user" aria-hidden="true"></i></button>
       </div>
 
       <div style="text-align: center; margin-top: 20px;">

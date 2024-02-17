@@ -16,6 +16,7 @@ export class VideocallComponent implements OnInit {
 
   videoOn:Boolean = true;
 audioOn :Boolean = true;
+showchat:Boolean = true;
 
 
 
@@ -61,6 +62,10 @@ audioOn :Boolean = true;
 
      closeCall(){
       this.callservice.closeCall();
+     }
+
+     ToggleChat(){
+ this.showchat = !this.showchat;
      }
 
   ngOnInit(): void {

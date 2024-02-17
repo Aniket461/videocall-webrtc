@@ -1,21 +1,91 @@
-
-
-
 <app-videocall *ngIf="this.callservice.called"></app-videocall>
-<div *ngIf="!this.callservice.called" style="display: flex; flex-direction: column; text-align: center; padding: 20px;">
+<div
+  *ngIf="!this.callservice.called"
+  style="
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+    background-color: black;
+  "
+>
+<div style="position: absolute;
+right: 0;
+margin-right: 20px;">
+  <button class="btn btn-outline-light" (click)="logout()">
 
-    <h3>User List</h3>
+    Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+  </button>
+</div>
 
-<div *ngFor="let user of this.userservice.users" style="display: flex; flex-direction: row; justify-content: space-between; padding: 20px;" class="userlist">
-    <div *ngIf="user['id'] != this.userid" style="width: 100%; display: flex; flex-direction: row;">
-    <div><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+  <h2 style="color: white">Your Saved Contacts</h2>
+  <div
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding: 20px;
+    "
+  >
+    <div class="form-group" style="margin-right: 10px; width: 70%">
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Enter name"
+      />
+    </div>
+    <button class="btn btn-outline-light">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div style="    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100vw;
+  align-items: center;"
+  class="inlineblock">
+    <div *ngFor="let user of this.userservice.users">
+      <div
+        *ngIf="user['_id'] != this.userid"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          width: 200px;
+          float: left;
+          border: 1px solid white; margin: 20px;
+          border-radius: 20px;
+        color: white;
+        "
+      >
+      
+      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 50px;"></i>
+        <p>{{ user["name"] }}</p>
+        <p class="lastseen">last seen 5minutes ago...</p>
+        <button class="btn btn-outline-light" (click)="VideoCall(user['_id'])">
+          <i class="fa fa-phone ph" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <h3>Your Friends</h3>
+  <div style="display: flex; flex-direction: row;">  
+<div *ngFor="let user of this.userservice.users" style="display: flex; flex-direction: row; justify-content: space-between;" class="userlist">
+    <div *ngIf="user['id'] != this.userid" style="width: 35%; width: 35%;
+    display: flex;
+    flex-direction: column;" class="eachuser">
+    <div><i class="fa fa-user-circle" aria-hidden="true" style="font-size: 45px;"></i></div>
     <div style="text-align: left;"><p>{{user["name"]}}</p></div>
-    <div><p>{{user["email"]}}</p></div>
-    <div><p>{{user["id"]}}</p></div>
-    <div><button class="btn btn-outline-dark" (click)="VideoCall(user['id'])" ><i class="fa fa-phone" aria-hidden="true"></i></button></div>
+    <div><p class="lastseen">last seen 5minutes ago...</p></div>
+    <div><button class="btn btn-outline-dark" (click)="VideoCall(user['id'])" ><i class="fa fa-phone ph" aria-hidden="true"></i></button></div>
 </div>
 </div>
-
-
-
+</div> -->
 </div>

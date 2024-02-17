@@ -16,6 +16,8 @@ export class UserlistComponent implements OnInit {
     this.userid = localStorage.getItem('myid') != null ?localStorage.getItem('myid'): '';
     console.log(this.userid);
     this.callservice.openconnection(this.userid);
+    console.log(this.userservice.users);
+    this.userservice.getUsers();
 
   }
 
@@ -44,8 +46,9 @@ export class UserlistComponent implements OnInit {
     this.callservice.connectToPeer(this.id,this.callerid);
   }
 
-  userlist = [{name:"Aniket Surve",id:"Aniket461"},
-  {name:"Aishwarya Chordia",id:"Aishwarya20"}]
+  logout(){
+    this.userservice.logout();
+  }
 
 
 }

@@ -65,7 +65,7 @@ export class CallserviceService {
         }
       })}
       this.mystream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
-      this.stream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
+      //this.stream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
       window.location.href = "/userlist"
     
   }
