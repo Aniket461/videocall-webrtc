@@ -29,6 +29,9 @@ jobs:
           npm install
           node index.js
         working-directory: ./backend
+        env: 
+          MONGOURL: mongodb+srv://Aniket4611:Aniket20@nikicoin.boz57.mongodb.net/video_call?retryWrites=true&w=majority
+
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
