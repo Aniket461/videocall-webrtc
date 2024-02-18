@@ -58,8 +58,9 @@ export class CallserviceService {
       this.peer.connections[conns].forEach((conn:any) => {
     console.log(conn.peerConnection.getSenders())
         const sender = conn.peerConnection.getSenders();
-        sender[1].replaceTrack(this.mystream.getVideoTracks()[0]);
-      sender[0].replaceTrack(this.mystream.getAudioTracks()[0]);
+
+        sender[1] != undefined ?sender[1].replaceTrack(this.mystream.getVideoTracks()[0]):null;
+        sender[0] != undefined ?sender[0].replaceTrack(this.mystream.getAudioTracks()[0]):null;
       })}
   }
 
