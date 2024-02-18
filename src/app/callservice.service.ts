@@ -10,6 +10,7 @@ export class CallserviceService {
 
 
   conn:any;
+  conn2:any;
   stream:any;
   called:Boolean = false;
   mystream:any;
@@ -26,7 +27,14 @@ export class CallserviceService {
     console.log(this.conn);
     this.conn.on('open',()=>{
      this.conn.send("Hello from"+myid);
-    }) 
+    }) ;
+    this.conn.on('data',(data:any)=>{
+
+      console.log(data);
+      if(data == "No call"){
+        this.closeCall();
+      }
+    })
     this.conn.on('close',()=>{
       window.location.href = "/userlist";
     })
@@ -41,7 +49,6 @@ export class CallserviceService {
 
   sendMessages(message:string){
     this.conn.send(message);
-    
   }
 
   muteAudio(){
@@ -73,6 +80,7 @@ export class CallserviceService {
     if(this.peer != undefined){
     this.peer.on("connection", (conn:any) => {
       this.connCall = conn;
+      this.conn2 = conn;
       conn.on("data", (data:any) => {
         // Will print 'hi!'
         console.log(data);
@@ -124,7 +132,7 @@ export class CallserviceService {
         })
       }
       else{
-        this.sendMessages("No call");
+        this.conn2.send("No call");
         call.close();
         this.closeCall();
         console.log('declined the call');
@@ -145,8 +153,6 @@ this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
 console.log(this.mystream);
         const call = await this.peer.call(callerid,stream);
-        if(call != undefined){
-
           console.log(call);
           call.on("stream", (remoteStream:any) => {
             this.stream = remoteStream;
@@ -156,11 +162,6 @@ console.log(this.mystream);
           call.on('close',()=>{
             window.location.href = '/userlist';
           })
-        }
-        else{
-          alert("call rejected");
-          window.location.href = '/userlist';
-        }
       }
 
 

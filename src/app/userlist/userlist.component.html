@@ -68,7 +68,7 @@ margin-right: 20px;">
       <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 50px;"></i>
         <p>{{ user["name"] }}</p>
         <p class="lastseen">last seen 5minutes ago...</p>
-        <button class="btn btn-outline-light" (click)="VideoCall(user['_id'])">
+        <button class="btn btn-outline-light" (click)="VideoCall(this.userservice.myid,user['_id'])">
           <i class="fa fa-phone ph" aria-hidden="true"></i>
         </button>
       </div>

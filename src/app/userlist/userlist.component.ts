@@ -33,8 +33,9 @@ export class UserlistComponent implements OnInit {
     this.callservice.sendMessages(this.message);
   }
 
-  async VideoCall(userid:string){
+  async VideoCall(myid:string,userid:string){
     this.callservice.VideoCall(userid);
+    this.callservice.connectToPeer(myid,userid);
   }
   connect(){
     localStorage.setItem("myid",this.id);
