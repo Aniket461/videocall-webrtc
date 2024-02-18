@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {DataConnection, Peer} from 'peerjs';
 import { UserlistComponent } from './userlist/userlist.component';
+import { UserserviceService } from './userservice.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CallserviceService {
 
-  constructor() { }
+  constructor(public userservice:UserserviceService) { }
 
 
   conn:any;
@@ -77,7 +78,6 @@ export class CallserviceService {
     
   }
   recieveCall(){
-    if(this.peer != undefined){
     this.peer.on("connection", (conn:any) => {
       this.connCall = conn;
       this.conn2 = conn;
@@ -96,10 +96,8 @@ export class CallserviceService {
       })
     })
   }
-  }
   async RecieveCall(){
     this.peer.on("call", async (call:any) => {
-
       call.on('close',()=>{
         window.location.href = "/userlist"
       })
@@ -162,6 +160,7 @@ console.log(this.mystream);
           call.on('close',()=>{
             window.location.href = '/userlist';
           })
+          this.connectToPeer(this.userservice.myid,callerid);
       }
 
 
