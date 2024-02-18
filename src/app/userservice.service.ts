@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CallserviceService } from './callservice.service';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface user {
   "_id":String,
@@ -15,7 +16,7 @@ interface user {
 })
 export class UserserviceService {
 
-  constructor(public callservice: CallserviceService, public http:HttpClient) { }
+  constructor(public callservice: CallserviceService, public http:HttpClient, public snackbar:MatSnackBar) { }
 
 
   users:any = []
@@ -37,8 +38,8 @@ password:''
         localStorage.setItem("email", "");
         window.location.href = "/"
   }
-
-  login(email: string, password: string) {
+  
+   login(email: string, password: string){
     let found = false;
     this.http.post(`${this.baseURL}login`,{email:email,password:password}).subscribe((res)=>{
 
@@ -50,14 +51,27 @@ password:''
         localStorage.setItem("name", this.user.name.toString());
         localStorage.setItem("email", this.user.email.toString());
         this.callservice.openconnection(this.user._id.toString());
-      window.location.href = "/userlist"
+        this.snackbar.open(`Welcome to VidChat!!`,"Dismiss" , { 
+          duration: 2000, verticalPosition:'top',horizontalPosition:'center'
+        }).afterDismissed().subscribe(res =>{
+          window.location.href = "/userlist"
+        });
       }
       else{
+        this.snackbar.open(`Something went wrong with Login!`,"Dismiss" , { 
+               duration: 2000, verticalPosition:'top',horizontalPosition:'center'
+             }).afterDismissed().subscribe(res =>{
+            });
         console.log("No user found");
+      
       }
     },(err)=>{
+      this.snackbar.open(`Something went wrong!`,"Dismiss" , { 
+        duration: 2000, verticalPosition:'top',horizontalPosition:'center'
+      }).afterDismissed().subscribe(res =>{
+     });
       console.log("No user found");
-    });
+    })
   }
 
   register(data:any){

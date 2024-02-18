@@ -88,6 +88,12 @@ export class CallserviceService {
   }
   async RecieveCall(){
     this.peer.on("call", async (call:any) => {
+
+      const answer = confirm("You are recieving a call, answer ??");
+
+      if(answer){
+        
+      }
       let stream = await navigator.mediaDevices.getUserMedia(
         { video: true, audio: true })
         this.myCall = call;
