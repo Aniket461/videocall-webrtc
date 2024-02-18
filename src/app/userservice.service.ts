@@ -29,7 +29,7 @@ password:''
 }
   myid = '';
 
-  baseURL = "http://localhost:3000/";
+  baseURL = "https://vidchat-aniket.azurewebsites.net/";
 
   logout(){
     localStorage.setItem("myid", "");
