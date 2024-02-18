@@ -17,8 +17,20 @@ export class VideocallComponent implements OnInit {
   videoOn:Boolean = true;
 audioOn :Boolean = true;
 showchat:Boolean = true;
+message = '';
 
 
+SendMessages(){
+  console.log(this.callservice.icalled);
+  if(this.callservice.icalled){
+    this.callservice.sendMessagetoReciever(this.message);
+  }
+  else{
+    this.callservice.sendMessagesToCaller(this.message);
+  }
+
+  this.message = '';
+}
 
   removeVideo(){
     this.callservice.mystream.removeTrack(this.callservice.videotrack);

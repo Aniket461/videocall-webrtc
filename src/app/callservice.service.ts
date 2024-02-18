@@ -11,6 +11,7 @@ export class CallserviceService {
 
 
   conn:any;
+  icalled:boolean = false;
   conn2:any;
   stream:any;
   called:Boolean = false;
@@ -105,7 +106,7 @@ export class CallserviceService {
       const answer = confirm("You are recieving a call, answer ??");
 
       if(answer){
-
+    this.icalled = false;
       let stream = await navigator.mediaDevices.getUserMedia(
         { video: true, audio: true })
         this.myCall = call;
@@ -141,7 +142,19 @@ export class CallserviceService {
 
   
   }
+
+sendMessagetoReciever(message:string){
+  this.conn.send(message);
+}
+  sendMessagesToCaller(message:string){
+    this.conn2.send(message)
+  }
+
+
   async VideoCall(callerid:string, myid:string){
+    
+    this.connectToPeer(myid,callerid);
+    this.icalled = true;
     const stream = await navigator.mediaDevices.getUserMedia(
       { video: true, audio: true });
 this.mystream = stream;
@@ -160,7 +173,6 @@ console.log(this.mystream);
           call.on('close',()=>{
             window.location.href = '/userlist';
           })
-          this.connectToPeer(myid,callerid);
       }
 
 
