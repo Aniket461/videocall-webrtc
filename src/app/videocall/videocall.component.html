@@ -68,12 +68,23 @@
       [hidden]="!this.showchat"
     >
 
-    <div style="display: flex;">
+    <div style="display: flex; flex-direction: column;">
+
+      <div>
+        <div *ngFor="let message of this.callservice.messages" style="padding: 5px;">
+        
+          <p style="color: white;" class="{{message['id'] == 'sender'? 'alleft' :'allright'}}">{{message["message"]}}</p>
+
+        </div>
+      </div>
+
+      <div style="display: flex;flex-direction: row;">
     <input type="text" class="form-control" id="exampleInputPassword1" placeholder="message..."[(ngModel)] ='message' >
     
     <button class="btn btn-outline-primary" (click)="SendMessages()">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </button>
+    </div>
 </div>
 </div>
   </div>

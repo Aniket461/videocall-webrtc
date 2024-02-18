@@ -21,17 +21,17 @@ export class CallserviceService {
   connCall:any;
   audiotrack:any
   cid:any;
-  
+  messages:any = [];
    peer:any;
   connectToPeer(myid:string,callerid:string){
     this.conn = this.peer.connect(callerid);
     this.cid = callerid;
     console.log(this.conn);
     this.conn.on('open',()=>{
-     this.conn.send("Hello from"+myid);
     }) ;
     this.conn.on('data',(data:any)=>{
 
+      this.messages.push({"id":"reciever","message":data});
       console.log(data);
       if(data == "No call"){
         this.closeCall();
@@ -85,12 +85,13 @@ export class CallserviceService {
       conn.on("data", (data:any) => {
         // Will print 'hi!'
         console.log(data);
+        this.messages.push({"id":"sender","message":data});
+
         if(data == "No call"){
           this.closeCall();
         }
       });
       conn.on("open", () => {
-        conn.send("hello!");
       });
       conn.on("close",()=>{
         window.location.href = '/userlist';
