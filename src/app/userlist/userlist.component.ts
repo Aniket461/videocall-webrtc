@@ -34,8 +34,7 @@ export class UserlistComponent implements OnInit {
   }
 
   async VideoCall(myid:string,userid:string){
-    this.callservice.VideoCall(userid);
-    this.callservice.connectToPeer(myid,userid);
+    this.callservice.VideoCall(userid, myid);
   }
   connect(){
     localStorage.setItem("myid",this.id);

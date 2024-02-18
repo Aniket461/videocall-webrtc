@@ -7,7 +7,7 @@ import { UserserviceService } from './userservice.service';
 })
 export class CallserviceService {
 
-  constructor(public userservice:UserserviceService) { }
+  constructor() { }
 
 
   conn:any;
@@ -141,7 +141,7 @@ export class CallserviceService {
 
   
   }
-  async VideoCall(callerid:string){
+  async VideoCall(callerid:string, myid:string){
     const stream = await navigator.mediaDevices.getUserMedia(
       { video: true, audio: true });
 this.mystream = stream;
@@ -160,7 +160,7 @@ console.log(this.mystream);
           call.on('close',()=>{
             window.location.href = '/userlist';
           })
-          this.connectToPeer(this.userservice.myid,callerid);
+          this.connectToPeer(myid,callerid);
       }
 
 
