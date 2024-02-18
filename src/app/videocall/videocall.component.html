@@ -73,7 +73,7 @@
       <div>
         <div *ngFor="let message of this.callservice.messages" style="padding: 5px;">
         
-          <p style="color: white;" class="{{message['id'] == 'sender'? 'alleft' :'allright'}}">{{message["message"]}}</p>
+          <p style="color: white;" class="{{message['id'] == 'sender'? 'alleft' :'allright'}}"><i class="{{message['id'] == 'sender'?'fa fa-user':'fa fa-user-circle'}}" aria-hidden="true"></i>: {{message["message"]}}</p>
 
         </div>
       </div>
