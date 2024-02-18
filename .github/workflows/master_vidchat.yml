@@ -27,8 +27,9 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          node ./backend/index.js
-      
+          node index.js
+          working-directory: ./backend
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
