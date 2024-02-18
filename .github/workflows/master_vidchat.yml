@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: '\backend'
+  AZURE_WEBAPP_PACKAGE_PATH: './backend'
 
 jobs:
   build:
