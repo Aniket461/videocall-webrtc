@@ -64,8 +64,8 @@ export class CallserviceService {
             conn.close();
         }
       })}
-      this.mystream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
-      this.stream.getTracks().forEach((track: { stop: () => any; }) => track.stop())
+      this.mystream != undefined ?this.mystream.getTracks().forEach((track: { stop: () => any; }) => track.stop()):null
+      this.stream != undefined ?this.stream.getTracks().forEach((track: { stop: () => any; }) => track.stop()):null
       window.location.href = "/userlist"
     
   }
@@ -76,6 +76,9 @@ export class CallserviceService {
       conn.on("data", (data:any) => {
         // Will print 'hi!'
         console.log(data);
+        if(data == "No call"){
+          this.closeCall();
+        }
       });
       conn.on("open", () => {
         conn.send("hello!");
@@ -121,6 +124,7 @@ export class CallserviceService {
         })
       }
       else{
+        this.sendMessages("No call");
         call.close();
         this.closeCall();
         console.log('declined the call');
@@ -140,15 +144,23 @@ this.called = true;
 this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
 console.log(this.mystream);
-        const call = this.peer.call(callerid,stream);
-        call.on("stream", (remoteStream:any) => {
-          this.stream = remoteStream;
-          this.RecieveCall();
-          this.called = true;
-        });
-        call.on('close',()=>{
+        const call = await this.peer.call(callerid,stream);
+        if(call != undefined){
+
+          console.log(call);
+          call.on("stream", (remoteStream:any) => {
+            this.stream = remoteStream;
+            this.RecieveCall();
+            this.called = true;
+          });
+          call.on('close',()=>{
+            window.location.href = '/userlist';
+          })
+        }
+        else{
+          alert("call rejected");
           window.location.href = '/userlist';
-        })
+        }
       }
 
 
