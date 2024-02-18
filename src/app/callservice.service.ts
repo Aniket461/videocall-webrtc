@@ -122,6 +122,7 @@ export class CallserviceService {
       }
       else{
         call.close();
+        this.closeCall();
         console.log('declined the call');
       }
 
