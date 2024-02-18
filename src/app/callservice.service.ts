@@ -86,7 +86,7 @@ export class CallserviceService {
       conn.on("data", (data:any) => {
         // Will print 'hi!'
         console.log(data);
-        this.messages.push({"id":"sender","message":data});
+        this.messages.push({"id":"reciever","message":data});
 
         if(data == "No call"){
           this.closeCall();
@@ -147,9 +147,11 @@ export class CallserviceService {
 
 sendMessagetoReciever(message:string){
   this.conn.send(message);
+  this.messages.push({"id":"sender","message":message})
 }
   sendMessagesToCaller(message:string){
     this.conn2.send(message)
+    this.messages.push({"id":"sender","message":message})
   }
 
 
