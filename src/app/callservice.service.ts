@@ -92,8 +92,7 @@ export class CallserviceService {
       const answer = confirm("You are recieving a call, answer ??");
 
       if(answer){
-        
-      }
+
       let stream = await navigator.mediaDevices.getUserMedia(
         { video: true, audio: true })
         this.myCall = call;
@@ -116,7 +115,16 @@ export class CallserviceService {
             this.stream = remoteStream;
             this.called = true;
         })
+      }
+      else{
+        call.close();
+        console.log('declined the call');
+      }
+
+
     });
+
+  
   }
   async VideoCall(callerid:string){
     const stream = await navigator.mediaDevices.getUserMedia(
@@ -132,6 +140,9 @@ console.log(this.mystream);
           this.stream = remoteStream;
           this.RecieveCall();
           this.called = true;
+        });
+        call.on('close',()=>{
+          window.location.href = '/userlist';
         })
       }
 
