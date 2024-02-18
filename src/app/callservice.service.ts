@@ -89,6 +89,10 @@ export class CallserviceService {
   async RecieveCall(){
     this.peer.on("call", async (call:any) => {
 
+      call.on('close',()=>{
+        window.location.href = "/userlist"
+      })
+      
       const answer = confirm("You are recieving a call, answer ??");
 
       if(answer){
