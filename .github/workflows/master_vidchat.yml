@@ -9,6 +9,9 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '\backend'
+
 jobs:
   build:
     runs-on: windows-latest
@@ -24,6 +27,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
+          node index.js
           npm run build --if-present
           npm run test --if-present
       
