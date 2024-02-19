@@ -147,11 +147,11 @@ SendMessages(){
         this.wasVideoon = true;
         
       this.callservice.mystream.removeTrack(this.callservice.mystream.getVideoTracks()[0]);
-        this.callservice.mystream.addTrack(this.screencapture.getTracks()[0]);
         this.callservice.muteAudio();
       }
       
     this.screenshareOn = true;
+    this.callservice.mystream.addTrack(this.screencapture.getTracks()[0]);
       console.log(this.callservice.mystream.getVideoTracks());
       this.screencapture.getVideoTracks()[0].addEventListener('ended', async () => {
       
