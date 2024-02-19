@@ -26,13 +26,12 @@ export class CallserviceService {
   connectToPeer(myid:string,callerid:string){
     this.conn = this.peer.connect(callerid);
     this.cid = callerid;
-    console.log(this.conn);
     this.conn.on('open',()=>{
     }) ;
     this.conn.on('data',(data:any)=>{
 
       this.messages.push({"id":"reciever","message":data});
-      console.log(data);
+      
       if(data == "No call"){
         this.closeCall();
       }
@@ -44,7 +43,6 @@ export class CallserviceService {
 
   openconnection(myid:string){
     this.peer= new Peer(myid);
-    console.log(this.peer);
     this.recieveCall();
     this.RecieveCall();
   }
@@ -53,7 +51,9 @@ export class CallserviceService {
     this.conn.send(message);
   }
 
-  muteAudio(){
+  muteAudio(from:boolean = false){
+
+
     for (let conns in this.peer.connections) {
       this.peer.connections[conns].forEach((conn:any) => {
     console.log(conn.peerConnection.getSenders())
@@ -65,7 +65,6 @@ export class CallserviceService {
   }
 
   closeCall(){
-    console.log(this.peer.connections);
     for (let conns in this.peer.connections) {
       this.peer.connections[conns].forEach((conn:any) => {
         conn.peerConnection.close();
@@ -84,8 +83,7 @@ export class CallserviceService {
       this.connCall = conn;
       this.conn2 = conn;
       conn.on("data", (data:any) => {
-        // Will print 'hi!'
-        console.log(data);
+      
         this.messages.push({"id":"reciever","message":data});
 
         if(data == "No call"){
@@ -127,7 +125,7 @@ export class CallserviceService {
           })
           // Answer the call with an A/V stream.
           call.on("stream", (remoteStream:any) => {
-            console.log(remoteStream);
+            
             this.stream = remoteStream;
             this.called = true;
         })
@@ -136,7 +134,6 @@ export class CallserviceService {
         this.conn2.send("No call");
         call.close();
         this.closeCall();
-        console.log('declined the call');
       }
 
 
@@ -166,9 +163,7 @@ this.mystream = stream;
 this.called = true;
 this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
-console.log(this.mystream);
         const call = await this.peer.call(callerid,stream);
-          console.log(call);
           call.on("stream", (remoteStream:any) => {
             this.stream = remoteStream;
             this.RecieveCall();

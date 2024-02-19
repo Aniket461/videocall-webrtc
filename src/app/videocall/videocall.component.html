@@ -19,7 +19,7 @@
   >
     <div class="videos" style="height: 80vh; flex: 1">
       <div class="vid1" style="width: 100%; height: 100%; position: relative">
-        <video
+        <video 
           [srcObject]="
             this.callservice.stream != undefined &&
             this.callservice.stream.getVideoTracks().length > 0
@@ -36,6 +36,14 @@
             border-radius: 0px;
           "
         ></video>
+
+
+
+
+
+
+
+
         <div
           class="vid2"
           style="
@@ -46,6 +54,21 @@
             right: 0;
           "
         >
+
+<!--         
+        <video *ngIf="screenshareOn"
+          [srcObject]="screencapture"
+          autoplay
+          width="100%"
+          height="100%"
+          style="
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            border-radius: 0px;
+          "
+        ></video> -->
+
           <video
             id="mystream"
             [srcObject]="this.callservice.mystream"
@@ -104,31 +127,37 @@
     class="controls"
   >
     <button class="btn btn-outline-light" (click)="ToggleAudio()">
-      <i
-        class="{{
-          !this.audioOn ? 'fa fa-microphone-slash' : 'fa fa-microphone'
-        }}"
-        aria-hidden="true"
-      ></i>
-    </button>
-    <button
-      *ngIf="!this.videoOn"
-      class="btn btn-outline-light"
-      (click)="this.addVideo()"
-    >
-      <i class="fa fa-video-camera" aria-hidden="true"></i>
-    </button>
-    <button
-      *ngIf="this.videoOn"
-      class="btn btn-outline-light"
-      (click)="this.removeVideo()"
-    >
-      <i class="fa fa-stop-circle" aria-hidden="true"></i>
+      <span class="fa-stack fa-lg" style="line-height: 1.5rem;width: 24px;height: 24px;">
+        <i class="fa fa-microphone fa-stack-1x {{!audioOn ?'innerI1':'innerI2'}}"></i>
+        <i *ngIf="!audioOn" class="fa fa-ban fa-stack-2x text-danger" style="font-size: 24px;"></i>
+      </span>
     </button>
 
-    <button class="btn btn-outline-light" (click)="this.ToggleChat()">
-      <i class="fa fa-comment" aria-hidden="true"></i>
+    <button class="btn btn-outline-light" (click)="toggleVideo()">
+      <span class="fa-stack fa-lg" style="line-height: 1.5rem;width: 24px;height: 24px;">
+        <i class="fa fa-video-camera fa-stack-1x {{!videoOn ?'innerI1':'innerI2'}}"></i>
+        <i *ngIf="!videoOn" class="fa fa-ban fa-stack-2x text-danger" style="font-size: 24px;"></i>
+      </span>
     </button>
+
+
+    <button class="btn btn-outline-light" (click)="this.screensharing()">
+      <span class="fa-stack fa-lg" style="line-height: 1.5rem;width: 24px;height: 24px;">
+        <i class="fa fa-desktop fa-stack-1x {{screenshareOn ?'innerI1':'innerI2'}}"></i>
+        <i *ngIf="screenshareOn" class="fa fa-ban fa-stack-2x text-danger" style="font-size: 24px;"></i>
+      </span>
+    <!-- <i class="fa fa-desktop" aria-hidden="true"></i> -->
+    </button>
+
+
+    <button class="btn btn-outline-light" (click)="this.ToggleChat()">
+      <span class="fa-stack fa-lg" style="line-height: 1.5rem;width: 24px;height: 24px;">
+        <i class="fa fa-comment fa-stack-1x {{!showchat ?'innerI1':'innerI2'}}"></i>
+        <i *ngIf="!showchat" class="fa fa-ban fa-stack-2x text-danger" style="font-size: 24px;"></i>
+      </span>
+    </button>
+
+
     <button class="btn btn-outline-danger" (click)="this.closeCall()">
       <i class="fa fa-phone" aria-hidden="true"></i>
     </button>

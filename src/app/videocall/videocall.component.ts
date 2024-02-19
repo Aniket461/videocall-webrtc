@@ -18,10 +18,11 @@ export class VideocallComponent implements OnInit {
 audioOn :Boolean = true;
 showchat:Boolean = true;
 message = '';
-
+screenshareOn:Boolean = false;
+screencapture :any
+wasVideoon:Boolean = false;
 
 SendMessages(){
-  console.log(this.callservice.icalled);
   if(this.callservice.icalled){
     this.callservice.sendMessagetoReciever(this.message);
   }
@@ -33,17 +34,50 @@ SendMessages(){
 }
 
   removeVideo(){
-    this.callservice.mystream.removeTrack(this.callservice.videotrack);
-    (<HTMLVideoElement>document.getElementById('mystream')).srcObject = null;
-    this.videoOn = false;
 
+    console.log("removevid")
+    let stream = this.callservice.mystream;
+
+    this.callservice.mystream.getVideoTracks().forEach((track:any)=>{
+
+      if(!track.label.toString().includes('window')){
+        stream.removeTrack(track);
+      }
+    })
+    this.callservice.mystream.removeTrack(this.callservice.videotrack);
+
+    this.callservice.mystream.getVideoTracks().length == 0 ? (<HTMLVideoElement>document.getElementById('mystream')).srcObject = null : null
+    this.callservice.mystream = stream;
     this.callservice.muteAudio();
   }
 
   addVideo(){
+
+    console.log("addvideo")
+    if(this.callservice.mystream.getVideoTracks().length >1){
+
+      let count = 0;
+      this.callservice.mystream.getVideoTracks().forEach((track:any)=>{
+
+        if(!track.label.toString().includes("window")){
+          count = count + 1;
+        }
+      })
+      if(count == 0){
+        this.callservice.mystream.addTrack(this.callservice.videotrack);
+        console.log(this.callservice.mystream.getVideoTracks());
+        (<HTMLVideoElement>document.getElementById('mystream')).srcObject = this.callservice.mystream;
+      }
+
+    }
+    else{
+
     this.callservice.mystream.addTrack(this.callservice.videotrack);
+    console.log(this.callservice.mystream.getVideoTracks());
     (<HTMLVideoElement>document.getElementById('mystream')).srcObject = this.callservice.mystream;
-    this.videoOn = true;
+
+    }
+    
     this.callservice.muteAudio();
   }
 
@@ -58,9 +92,20 @@ SendMessages(){
     }
 
   }
+
+  toggleVideo(){
+    console.log(this.videoOn);
+    if(this.videoOn){
+      this.removeVideo();
+      this.videoOn = !this.videoOn
+    }
+    else{
+      this.addVideo();
+      this.videoOn = !this.videoOn
+    }
+  }
   
   removeAudio(){
-    console.log(this.callservice.mystream.getVideoTracks())
     this.callservice.mystream.removeTrack(this.callservice.audiotrack);
     
     this.callservice.muteAudio();
@@ -80,7 +125,69 @@ SendMessages(){
  this.showchat = !this.showchat;
      }
 
-  ngOnInit(): void {
+
+     async screensharing(){
+      const displayMediaOptions = {
+        video: {
+          displaySurface: "window",
+        },
+        audio: {
+          suppressLocalAudioPlayback: false,
+        },
+        preferCurrentTab: false,
+        selfBrowserSurface: "exclude",
+        systemAudio: "include",
+        surfaceSwitching: "include",
+        monitorTypeSurfaces: "include",
+      };
+
+      this.screencapture = await (navigator.mediaDevices as any).getDisplayMedia(displayMediaOptions);
+
+      if(this.videoOn){
+        this.wasVideoon = true;
+        
+      this.callservice.mystream.removeTrack(this.callservice.mystream.getVideoTracks()[0]);
+        this.callservice.mystream.addTrack(this.screencapture.getTracks()[0]);
+        this.callservice.muteAudio();
+      }
+      
+    this.screenshareOn = true;
+      console.log(this.callservice.mystream.getVideoTracks());
+      this.screencapture.getVideoTracks()[0].addEventListener('ended', async () => {
+      
+        if(this.wasVideoon){
+        const getvid = await navigator.mediaDevices.getUserMedia({video:true}); 
+        
+        this.callservice.mystream.addTrack(getvid.getVideoTracks()[0]);
+      console.log(this.callservice.mystream.getVideoTracks());
+      
+      this.callservice.mystream.removeTrack(this.callservice.mystream.getVideoTracks()[0]);
+        this.callservice.muteAudio();
+        this.videoOn = true;
+      this.wasVideoon = false;  
+      (<HTMLVideoElement>document.getElementById('mystream')).srcObject = this.callservice.mystream
+      console.log("Innnnn");
+      }
+        else{
+this.wasVideoon = false;
+          this.videoOn = false;
+          console.log("outtt");
+        }
+        //this.addVideo();
+        //this.callservice.muteAudio();
+        //this.screenshareOn = false;
+        console.log("Ended");
+        
+    this.screenshareOn = false;
+    });
+
+      // let videlement = document.getElementById('')
+      // this.screenshareOn = true;
+      //this.callservice.mystream.addTrack(screencapture);
+
+     }
+     
+     ngOnInit(): void {
   }
 
 
