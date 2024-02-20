@@ -23,23 +23,52 @@ export class CallserviceService {
   cid:any;
   messages:any = [];
    peer:any;
-  connectToPeer(myid:string,callerid:string){
-    this.conn = this.peer.connect(callerid);
+   callrecieved = false;
+  async connectToPeer(myid:string,callerid:string){
+    this.conn = await this.peer.connect(callerid);
+    console.log(this.conn);
     this.cid = callerid;
+
     this.conn.on('open',()=>{
+
+      console.log("OPENNNNNNNNNNNNNNNNNNNNNNNN")
     }) ;
     this.conn.on('data',(data:any)=>{
 
-      this.messages.push({"id":"reciever","message":data});
+      console.log(data);
       
-      if(data == "No call"){
+      if(data == "irecieve"){
+        this.callrecieved = true;
+      }
+      else if(data == "No call"){
         this.closeCall();
       }
+      else{
+      this.messages.push({"id":"reciever","message":data});
+      }
+      
     })
+
     this.conn.on('close',()=>{
       window.location.href = "/userlist";
-    })
-  }
+    });
+
+    console.log(this.conn.dataChannel.readyState);
+
+
+    setTimeout(()=>{
+      if(!this.callrecieved){
+        alert("Call not answered!");
+        window.location.href = '/userlist';
+      }
+    },15000)
+    // if(this.conn.open){
+
+    //   alert('The user is offline, Call cannot be placed!');
+    //   window.location.href = '/userlist';
+
+    // }
+      }
 
   openconnection(myid:string){
     this.peer= new Peer(myid);
@@ -88,10 +117,16 @@ export class CallserviceService {
 
         if(data == "No call"){
           this.closeCall();
-        }
+        }        
       });
       conn.on("open", () => {
+
       });
+
+      conn.on('error',(err:any)=>{
+
+        console.log(err);
+      })
       conn.on("close",()=>{
         window.location.href = '/userlist';
       })
@@ -115,7 +150,7 @@ export class CallserviceService {
                  this.videotrack = stream.getVideoTracks()[0];
                  this.audiotrack = stream.getAudioTracks()[0];
           call.answer(stream);
-
+          this.conn2.send('irecieve')
           call.on('close',()=>{
             window.location.href = "/userlist"
           })
@@ -156,6 +191,7 @@ sendMessagetoReciever(message:string){
     
     this.connectToPeer(myid,callerid);
     this.icalled = true;
+    console.log(this.conn);
     const stream = await navigator.mediaDevices.getUserMedia(
       { video: true, audio: true });
 this.mystream = stream;
@@ -164,6 +200,7 @@ this.called = true;
 this.videotrack = stream.getVideoTracks()[0];
 this.audiotrack = stream.getAudioTracks()[0];
         const call = await this.peer.call(callerid,stream);
+        console.log(call);
           call.on("stream", (remoteStream:any) => {
             this.stream = remoteStream;
             this.RecieveCall();
@@ -171,6 +208,10 @@ this.audiotrack = stream.getAudioTracks()[0];
           });
           call.on('close',()=>{
             window.location.href = '/userlist';
+          })
+
+          call.on('error',(err:any)=>{
+            console.log(err);
           })
       }
 
