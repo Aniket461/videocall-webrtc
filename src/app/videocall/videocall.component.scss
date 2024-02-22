@@ -64,16 +64,18 @@
     width: 40%;
   }
   .chat {
-    width: 60%;
+    width: 80%;
     border: 1px solid white;
     bottom: 0;
+    height: 70%;
+    margin-top: 15%;
+    /* margin: auto; */
     display: flex;
     flex-direction: column-reverse;
-    height: 95%; flex: 1;
     position: absolute;
     overflow-y: scroll;
-    right: 20px;
-    top: 50px;
+    right: 40px;
+    top: 55px;
   }
   .videos{
     height: calc(90vh - 70px);
