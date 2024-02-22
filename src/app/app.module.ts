@@ -10,7 +10,10 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DialogueboxComponent } from './dialoguebox/dialoguebox.component'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { BasicpopupComponent } from './basicpopup/basicpopup.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     UserlistComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    DialogueboxComponent,
+    BasicpopupComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
     
   ],
   providers: [],

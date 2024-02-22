@@ -5,7 +5,7 @@
     <div style="text-align: center;">
         <h1>Become a VChat member...</h1>
     </div>
-    <form style="margin-bottom: 10px;">
+    <form style="margin-bottom: 10px;" (ngSubmit)="Register()">
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
             <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" [(ngModel)]="name">
@@ -18,10 +18,10 @@
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
         </div>
+        <div style="text-align: center;"><button type="submit" class="btn btn-outline-dark" (click)="Register()" >Register <i class="fa fa-user" aria-hidden="true"></i></button>
+        </div>  
       </form>
-      <div style="text-align: center;"><button type="button" class="btn btn-outline-dark" (click)="Register()" >Register <i class="fa fa-user" aria-hidden="true"></i></button>
-      </div>
-
+      
       <div style="text-align: center; margin-top: 20px;">
 
         <h5>Have an account?? <a href="/"><button type="button" class="btn btn-outline-dark">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button></a></h5>

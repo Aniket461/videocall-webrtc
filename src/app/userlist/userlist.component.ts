@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CallserviceService } from '../callservice.service';
 import { UserserviceService } from '../userservice.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogueboxComponent } from '../dialoguebox/dialoguebox.component';
 
 @Component({
   selector: 'app-userlist',
@@ -9,7 +11,7 @@ import { UserserviceService } from '../userservice.service';
 })
 export class UserlistComponent implements OnInit {
 
-  constructor(public callservice:CallserviceService, public userservice:UserserviceService) { }
+  constructor(public callservice:CallserviceService, public userservice:UserserviceService, private dialog: MatDialog) { }
 
   userid:any;
   ngOnInit(): void {
@@ -49,6 +51,5 @@ export class UserlistComponent implements OnInit {
   logout(){
     this.userservice.logout();
   }
-
 
 }

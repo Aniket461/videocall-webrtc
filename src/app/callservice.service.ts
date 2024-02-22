@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import {DataConnection, Peer} from 'peerjs';
 import { UserlistComponent } from './userlist/userlist.component';
 import { UserserviceService } from './userservice.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogueboxComponent } from './dialoguebox/dialoguebox.component';
+import { firstValueFrom } from 'rxjs';
+import { BasicpopupComponent } from './basicpopup/basicpopup.component';
 @Injectable({
   providedIn: 'root'
 })
 export class CallserviceService {
 
-  constructor() { }
+  constructor(public snackbar:MatSnackBar,private dialog: MatDialog) { }
 
 
   conn:any;
@@ -24,6 +29,8 @@ export class CallserviceService {
   messages:any = [];
    peer:any;
    callrecieved = false;
+   dialogclicked = false;
+   public answer = false;
   async connectToPeer(myid:string,callerid:string){
     this.conn = await this.peer.connect(callerid);
     console.log(this.conn);
@@ -31,7 +38,6 @@ export class CallserviceService {
 
     this.conn.on('open',()=>{
 
-      console.log("OPENNNNNNNNNNNNNNNNNNNNNNNN")
     }) ;
     this.conn.on('data',(data:any)=>{
 
@@ -58,8 +64,7 @@ export class CallserviceService {
 
     setTimeout(()=>{
       if(!this.callrecieved){
-        alert("Call not answered!");
-        window.location.href = '/userlist';
+        this.basicpopup("Call was not answered, redirecting to call list!!");
       }
     },15000)
     // if(this.conn.open){
@@ -107,6 +112,30 @@ export class CallserviceService {
       window.location.href = "/userlist"
     
   }
+
+  
+  
+  async basicpopup(message:string){
+    
+    const dialogref = this.dialog.open(BasicpopupComponent,{data: { message: message }});
+    dialogref.afterOpened().subscribe(res =>{
+      setTimeout(()=>{
+        window.location.href = "/userlist";
+      },2000)
+    })
+   
+  }
+
+
+  async openDialog(message:string){
+    
+    this.dialogclicked = false;
+    this.answer = false;
+    const dialogref = this.dialog.open(DialogueboxComponent,{data: { message: message }})
+    await firstValueFrom(dialogref.afterClosed());
+  }
+
+
   recieveCall(){
     this.peer.on("connection", (conn:any) => {
       this.connCall = conn;
@@ -114,6 +143,7 @@ export class CallserviceService {
       conn.on("data", (data:any) => {
       
         this.messages.push({"id":"reciever","message":data});
+
 
         if(data == "No call"){
           this.closeCall();
@@ -138,9 +168,12 @@ export class CallserviceService {
         window.location.href = "/userlist"
       })
       
-      const answer = confirm("You are recieving a call, answer ??");
+      await this.openDialog("Would you like to to answer??");
+      console.log(this.answer);
+      
 
-      if(answer){
+      
+      if(this.answer){
     this.icalled = false;
       let stream = await navigator.mediaDevices.getUserMedia(
         { video: true, audio: true })

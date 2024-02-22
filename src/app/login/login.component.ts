@@ -14,8 +14,9 @@ export class LoginComponent implements OnInit {
 
   email ='';
   password = '';
-
+isloginpressed = false;
   Login(){
+    this.isloginpressed = true;
   this.userservice.login(this.email,this.password);
 
 // if(login){

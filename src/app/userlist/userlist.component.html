@@ -10,14 +10,11 @@
     background-color: black;
   "
 >
-<div style="position: absolute;
-right: 0;
-margin-right: 20px;">
-  <button class="btn btn-outline-light" (click)="logout()">
-
-    Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
-  </button>
-</div>
+  <div style="position: absolute; right: 0; margin-right: 20px">
+    <button class="btn btn-outline-light" (click)="logout()">
+      Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </button>
+  </div>
 
   <h2 style="color: white">Your Saved Contacts</h2>
   <div
@@ -42,12 +39,16 @@ margin-right: 20px;">
     </button>
   </div>
 
-  <div style="    display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 100vw;
-  align-items: center;"
-  class="inlineblock">
+  <div
+    style="
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100vw;
+      align-items: center;
+    "
+    class="inlineblock"
+  >
     <div *ngFor="let user of this.userservice.users">
       <div
         *ngIf="user['_id'] != this.userid"
@@ -59,21 +60,35 @@ margin-right: 20px;">
           padding: 20px;
           width: 200px;
           float: left;
-          border: 1px solid white; margin: 20px;
+          border: 1px solid white;
+          margin: 20px;
           border-radius: 20px;
-        color: white;
+          color: white;
         "
       >
-      
-      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 50px;"></i>
+        <i
+          class="fa fa-user-circle"
+          aria-hidden="true"
+          style="font-size: 50px"
+        ></i>
         <p>{{ user["name"] }}</p>
         <p class="lastseen">last seen 5minutes ago...</p>
-        <button class="btn btn-outline-light" (click)="VideoCall(this.userservice.myid,user['_id'])">
+        <button
+          class="btn btn-outline-light"
+          (click)="VideoCall(this.userservice.myid, user['_id'])"
+        >
           <i class="fa fa-phone ph" aria-hidden="true"></i>
         </button>
       </div>
     </div>
   </div>
+
+
+<!-- 
+<button class="btn btn-outline-light" (click)="openDialog()" style="width: 200px;">Open Dialog</button>
+ -->
+
+
 
   <!-- <h3>Your Friends</h3>
   <div style="display: flex; flex-direction: row;">  
