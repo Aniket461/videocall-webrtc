@@ -20,7 +20,7 @@ export class UserserviceService {
 
 
   users:any = []
-
+getusercalled = false;
 
 user:user ={
 name:'',
@@ -91,6 +91,7 @@ else{
   getUsers(){
     this.http.get(`${this.baseURL}getusers`).subscribe(res =>{
       console.log(res);
+      this.getusercalled = true;
       this.users = <any[]>res;
     },(err)=>{
       console.log(err);

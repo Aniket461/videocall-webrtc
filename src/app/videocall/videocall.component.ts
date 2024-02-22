@@ -16,7 +16,7 @@ export class VideocallComponent implements OnInit {
 
   videoOn:Boolean = true;
 audioOn :Boolean = true;
-showchat:Boolean = true;
+showchat:Boolean = false;
 message = '';
 screenshareOn:Boolean = false;
 screencapture :any

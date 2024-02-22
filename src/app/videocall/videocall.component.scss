@@ -1,42 +1,78 @@
-.vid1, .vid2{
-    border-radius: 0px;
-    background-image: url("../../assets/placeholder.png");
-background-repeat: no-repeat;
-background-position: center;
-background-color: rgb(39 37 37);
-border: 1px solid white;
-background-size: contain;
+.vid1,
+.vid2 {
+  border-radius: 0px;
+  background-image: url("../../assets/placeholder.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgb(39 37 37);
+  border: 1px solid white;
+  background-size: contain;
 }
-.chat{
-    border: 1px solid white;
-background-color: rgb(39 37 37);
-    input{
-        border-radius: 0px;
-    }
-    button{
-        border-radius: 0px;
-    }
+.chat {
+  border: 1px solid white;
+  width: 25%;
+  border: 1px solid white;
+  bottom: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 80vh;
+  overflow-y: scroll;
+  background-color: rgb(39 37 37);
+  input {
+    border-radius: 0px;
+  }
+  button {
+    border-radius: 0px;
+  }
 }
 
 .controls {
-    background-color:rgb(39 37 37);
-    padding-bottom: 10px;
-    padding-top: 10px;
-    button{
-        margin: 5px;
-    }
+  background-color: rgb(39 37 37);
+  padding-bottom: 10px;
+  padding-top: 10px;
+  button {
+    margin: 5px;
+  }
 }
 
-.alleft{
-    margin-left: 40%;
+.alleft {
+  margin-left: 40%;
 }
-.allright{
-    margin-right: 40%;
+.allright {
+  margin-right: 40%;
 }
 
-.innerI1{
-    font-size: 12px;
+.innerI1 {
+  font-size: 12px;
 }
-.innerI2{
-    font-size: 20px;
+.innerI2 {
+  font-size: 20px;
+}
+
+.vid2 {
+  width: 20%;
+  height: 35%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@media (max-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+
+  .vid2 {
+    width: 40%;
+  }
+  .chat {
+    width: 50%;
+    border: 1px solid white;
+    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 80vh;
+    position: absolute;
+    overflow-y: scroll;
+    right: 20px;
+    top: 50px;
+  }
 }
