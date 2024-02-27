@@ -13,8 +13,8 @@
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" name="test" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
         </div>
-      <div style="text-align: center;"> <button [disabled]="isloginpressed" type="submit" class="btn btn-outline-dark" style="margin-right: 5px;">Login <i *ngIf="!isloginpressed" class="fa fa-sign-in" aria-hidden="true"></i>
-        <i *ngIf="isloginpressed" class="fa fa-spinner" aria-hidden="true"></i>
+      <div style="text-align: center;"> <button [disabled]="this.userservice.isloginpressed" type="submit" class="btn btn-outline-dark" style="margin-right: 5px;">Login <i *ngIf="!this.userservice.isloginpressed" class="fa fa-sign-in" aria-hidden="true"></i>
+        <i *ngIf="this.userservice.isloginpressed" class="fa fa-spinner" aria-hidden="true"></i>
       
       </button>
        

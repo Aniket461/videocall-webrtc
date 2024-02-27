@@ -19,7 +19,7 @@ export class UserlistComponent implements OnInit {
     console.log(this.userid);
     this.callservice.openconnection(this.userid);
     console.log(this.userservice.users);
-    this.userservice.getUsers();
+    this.userservice.getUserFriends(this.userid);
 
   }
 

@@ -18,8 +18,9 @@
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
         </div>
-        <div style="text-align: center;"><button type="submit" class="btn btn-outline-dark" (click)="Register()" >Register <i class="fa fa-user" aria-hidden="true"></i></button>
-        </div>  
+        <div style="text-align: center;"> <button [disabled]="this.userservice.isregisterclicked" type="submit" class="btn btn-outline-dark" style="margin-right: 5px;">Register <i *ngIf="!this.userservice.isregisterclicked" class="fa fa-user" aria-hidden="true"></i>
+          <i *ngIf="this.userservice.isregisterclicked" class="fa fa-spinner" aria-hidden="true"></i> </button>
+          </div>
       </form>
       
       <div style="text-align: center; margin-top: 20px;">
