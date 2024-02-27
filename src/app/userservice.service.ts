@@ -34,8 +34,8 @@ export class UserserviceService {
   };
   myid = '';
 
-  //baseURL = "https://vidchat-aniket.azurewebsites.net/";
-  baseURL = 'http://localhost:3000/';
+  baseURL = "https://vidchat-aniket.azurewebsites.net/";
+  //baseURL = 'http://localhost:3000/';
 
   logout() {
     localStorage.setItem('myid', '');
