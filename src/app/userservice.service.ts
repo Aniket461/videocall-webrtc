@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CallserviceService } from './callservice.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { BasicpopupComponent } from './basicpopup/basicpopup.component';
 
 interface user {
   _id: String;
@@ -18,12 +20,14 @@ export class UserserviceService {
   constructor(
     public callservice: CallserviceService,
     public http: HttpClient,
-    public snackbar: MatSnackBar
+    public snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   users: any = [];
-  friends:any = [];
+  friends: any = [];
   getusercalled = false;
+  friendslist = '';
 
   user: user = {
     name: '',
@@ -34,8 +38,8 @@ export class UserserviceService {
   };
   myid = '';
 
-  baseURL = "https://vidchat-aniket.azurewebsites.net/";
-  //baseURL = 'http://localhost:3000/';
+  //baseURL = "https://vidchat-aniket.azurewebsites.net/";
+  baseURL = 'http://localhost:3000/';
 
   logout() {
     localStorage.setItem('myid', '');
@@ -57,6 +61,9 @@ export class UserserviceService {
             localStorage.setItem('myid', this.user._id.toString());
             localStorage.setItem('name', this.user.name.toString());
             localStorage.setItem('email', this.user.email.toString());
+            localStorage.setItem('friends', this.user.friends.toString());
+            this.friendslist = this.user.friends.toString();
+
             this.callservice.openconnection(this.user._id.toString());
             this.snackbar
               .open(`Welcome to VidChat!!`, 'Dismiss', {
@@ -101,31 +108,34 @@ export class UserserviceService {
     this.isregisterclicked = true;
     this.http.post(`${this.baseURL}register`, data).subscribe(
       (res) => {
-        if (res.hasOwnProperty('message')) this.snackbar
-        .open(`Registered successfully, Redirecting....`, 'Dismiss', {
-          duration: 2000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-        })
-        .afterDismissed()
-        .subscribe((res) => {
-          window.location.href = '/';
-        });
+        if (res.hasOwnProperty('message'))
+          this.snackbar
+            .open(`Registered successfully, Redirecting....`, 'Dismiss', {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            })
+            .afterDismissed()
+            .subscribe((res) => {
+              window.location.href = '/';
+            });
         else {
           this.isregisterclicked = false;
           this.snackbar
-              .open(`Something went wrong, please try again or use different email!`, 'Dismiss', {
+            .open(
+              `Something went wrong, please try again or use different email!`,
+              'Dismiss',
+              {
                 duration: 2000,
                 verticalPosition: 'top',
                 horizontalPosition: 'center',
-              })
-              .afterDismissed()
-              .subscribe((res) => {
-              });
+              }
+            )
+            .afterDismissed()
+            .subscribe((res) => {});
         }
       },
       (err) => {
-        
         this.isregisterclicked = false;
         console.log(err);
       }
@@ -148,7 +158,7 @@ export class UserserviceService {
     this.http.get(`${this.baseURL}friends\\${userid}`).subscribe(
       (res) => {
         this.getusercalled = true;
-        this.friends = (<user[]>res);
+        this.friends = <user[]>res;
       },
       (err) => {
         console.log(err);
@@ -156,13 +166,13 @@ export class UserserviceService {
     );
   }
 
-  searchUsers(email:Event){
+  searchUsers(email: string) {
     this.searchclicked = true;
-let e = (<HTMLInputElement>email.target).value;
-if(e == ''){
-  e = 'emptyword';
-  this.searchclicked = false;
-}
+    let e = email;
+    if (e == '') {
+      e = 'emptyword';
+      this.searchclicked = false;
+    }
     this.http.get(`${this.baseURL}search\\${e}`).subscribe(
       (res) => {
         this.getusercalled = true;
@@ -172,37 +182,34 @@ if(e == ''){
         console.log(err);
       }
     );
-
   }
 
   searchclicked = false;
   search = '';
 
-  setSearchClicked(){
-this.searchclicked = false;
-this.search = '';
+  setSearchClicked() {
+    this.searchclicked = false;
+    this.search = '';
   }
 
-  addtofriends(myid:any,userid:any){
+  addtofriends(myid: any, userid: any) {
     console.log(this.myid);
-    let data = {"myid":localStorage.getItem("myid"),"userid":userid}
+    let data = { myid: localStorage.getItem('myid'), userid: userid };
     this.http.post(`${this.baseURL}addtofriends`, data).subscribe(
       (res) => {
         if (res.hasOwnProperty('message')) {
-
           this.snackbar
-          .open(`User Added to Friend List`, 'Dismiss', {
-            duration: 2000,
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-          })
-          .afterDismissed()
-          .subscribe((res) => {
-            this.getUserFriends(localStorage.getItem("myid"));
-            //window.location.href = '/userlist';
-          });
-
-        }        else {
+            .open(`User Added to Friend List`, 'Dismiss', {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            })
+            .afterDismissed()
+            .subscribe((res) => {
+              this.getUserFriends(localStorage.getItem('myid'));
+              this.refreshfriends();
+            });
+        } else {
         }
       },
       (err) => {
@@ -211,4 +218,61 @@ this.search = '';
     );
   }
 
+  refreshfriends() {
+    this.http
+      .get(`${this.baseURL}refreshfriends\\${localStorage.getItem('myid')}`)
+      .subscribe(
+        (res) => {
+          localStorage.setItem('friends', (<user>res)['friends'].toString());
+          window.location.href = '/userlist';
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  removeFriend(id: any) {
+
+    let data = {myid:localStorage.getItem('myid'),userid:id}
+    this.http.post(`${this.baseURL}deletefriend`,data)
+      .subscribe(
+        (res) => {
+          this.snackbar
+            .open(`Removed Successfully`, 'Dismiss', {
+              duration: 1000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            })
+            .afterDismissed()
+            .subscribe((res) => {
+          this.refreshfriends();
+            });
+        },
+        (err) => {
+          console.log(err);
+          this.snackbar
+            .open(`Something went wrong with removing from friend list!`, 'Dismiss', {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            })
+            .afterDismissed()
+            .subscribe((res) => {
+              window.location.href = '/userlist'
+            });
+        }
+      );
+  }
+
+  removeFromFriends(id: any, name: string) {
+    const dialogref = this.dialog.open(BasicpopupComponent, {
+      data: {
+        message: `Do you want to remove ${name} from your friend list ??`,
+        isfuncPresent: true,
+        func: this.removeFriend,
+        friendid: id,
+      },
+    });
+  }
 }

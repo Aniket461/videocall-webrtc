@@ -117,7 +117,7 @@ export class CallserviceService {
   
   async basicpopup(message:string){
     
-    const dialogref = this.dialog.open(BasicpopupComponent,{data: { message: message }});
+    const dialogref = this.dialog.open(BasicpopupComponent,{data: { message: message ,isfuncPresent:false }});
     dialogref.afterOpened().subscribe(res =>{
       setTimeout(()=>{
         window.location.href = "/userlist";

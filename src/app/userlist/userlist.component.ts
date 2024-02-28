@@ -14,11 +14,11 @@ export class UserlistComponent implements OnInit {
   constructor(public callservice:CallserviceService, public userservice:UserserviceService, private dialog: MatDialog) { }
 
   userid:any;
+  friendlist:any;
   ngOnInit(): void {
     this.userid = localStorage.getItem('myid') != null ?localStorage.getItem('myid'): '';
-    console.log(this.userid);
+    this.friendlist = localStorage.getItem('friends') != null ?localStorage.getItem('friends'): '';
     this.callservice.openconnection(this.userid);
-    console.log(this.userservice.users);
     this.userservice.getUserFriends(this.userid);
 
   }
