@@ -23,7 +23,7 @@
         <video 
           [srcObject]="
             this.callservice.stream != undefined &&
-            this.callservice.stream.getVideoTracks().length > 0
+            !this.callservice.stream.getVideoTracks()[0].muted
               ? this.callservice.stream
               : null
           "
@@ -37,18 +37,7 @@
             border-radius: 0px;
           "
         ></video>
-
-
-
-
-
-
-
-
-        <div
-          class="vid2"
-          
-        >
+        <div class="vid2">
 
 <!--         
         <video *ngIf="screenshareOn"
@@ -81,7 +70,7 @@
       </div>
     </div>
     <div
-      class="chat"
+      class="chat" 
       [hidden]="!this.showchat"
     >
 
@@ -96,11 +85,13 @@
       </div>
 
       <div style="display: flex;flex-direction: row;">
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="message..."[(ngModel)] ='message' >
+        <form (submit)="SendMessages()" style="display: flex;flex-direction: row; width: 100%;">
+    <input type="text" class="form-control" name="messagefield" id="exampleInputPassword1" placeholder="message..."[(ngModel)] ='message' >
     
-    <button class="btn btn-outline-primary" (click)="SendMessages()">
+    <button type="submit" class="btn btn-outline-primary">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </button>
+    </form>
     </div>
 </div>
 </div>

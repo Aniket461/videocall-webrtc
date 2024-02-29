@@ -48,6 +48,7 @@ SendMessages(){
 
     this.callservice.mystream.getVideoTracks().length == 0 ? (<HTMLVideoElement>document.getElementById('mystream')).srcObject = null : null
     this.callservice.mystream = stream;
+    console.log(this.callservice.mystream.getVideoTracks().length);
     this.callservice.muteAudio();
   }
 
@@ -113,7 +114,6 @@ SendMessages(){
 
   addAudio(){
     this.callservice.mystream.addTrack(this.callservice.audiotrack);
-    
     this.callservice.muteAudio();
      }
 
@@ -122,6 +122,9 @@ SendMessages(){
      }
 
      ToggleChat(){
+      
+      console.log(this.callservice.stream.getVideoTracks().length);
+      console.log(this.callservice.stream.getVideoTracks());
  this.showchat = !this.showchat;
      }
 
@@ -145,14 +148,17 @@ SendMessages(){
 
       if(this.videoOn){
         this.wasVideoon = true;
+        console.log("Video was on")
         
       this.callservice.mystream.removeTrack(this.callservice.mystream.getVideoTracks()[0]);
         this.callservice.muteAudio();
+        console.log(this.callservice.mystream.getVideoTracks().length);
       }
       
     this.screenshareOn = true;
     this.callservice.mystream.addTrack(this.screencapture.getTracks()[0]);
       console.log(this.callservice.mystream.getVideoTracks());
+      this.callservice.muteAudio();
       this.screencapture.getVideoTracks()[0].addEventListener('ended', async () => {
       
         if(this.wasVideoon){
