@@ -1,3 +1,16 @@
 .form-group{
     margin-bottom: 10px;
 }
+.container{
+
+    width: 55%;
+}
+
+@media (max-width: 480px) {
+    /* smartphones, Android phones, landscape iPhone */
+  
+    .container{
+
+        width: 80%;
+    }
+    }

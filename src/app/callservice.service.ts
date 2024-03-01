@@ -34,6 +34,7 @@ export class CallserviceService {
   async connectToPeer(myid:string,callerid:string){
     this.conn = await this.peer.connect(callerid);
     console.log(this.conn);
+    if(this.conn != undefined){
     this.cid = callerid;
 
     this.conn.on('open',()=>{
@@ -73,6 +74,11 @@ export class CallserviceService {
     //   window.location.href = '/userlist';
 
     // }
+  }
+  else{
+    console.log("In else");
+    const dialogref = this.dialog.open(DialogueboxComponent,{data: { message: "User is not online right now!, Call cannot be placed" }});
+  }
       }
 
   openconnection(myid:string){
@@ -222,9 +228,10 @@ sendMessagetoReciever(message:string){
 
   async VideoCall(callerid:string, myid:string){
     
-    this.connectToPeer(myid,callerid);
+    await this.connectToPeer(myid,callerid);
     this.icalled = true;
     console.log(this.conn);
+    if(this.conn != undefined){
     const stream = await navigator.mediaDevices.getUserMedia(
       { video: true, audio: true });
 this.mystream = stream;
@@ -248,5 +255,6 @@ this.audiotrack = stream.getAudioTracks()[0];
           })
       }
 
+    }
 
 }
