@@ -8,17 +8,18 @@
     text-align: center;
     padding: 20px;
     min-height: 100vh;
-    background-color: black;
+    background-color: #cdc1ff;
+    background-image: linear-gradient(316deg, #e5d9f2 0%, #e5d9f2 74%);
   "
 >
   <div>
     <div style="position: absolute; right: 0; margin-right: 20px">
-      <button class="btn btn-outline-light" (click)="logout()">
+      <button class="btn btn-outline-danger" (click)="logout()">
         Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
       </button>
     </div>
 
-    <h2 style="color: white">Your Saved Contacts</h2>
+    <h2 style="color: black; font-size: xx-large;" class="contact-list">Contact List</h2>
     <div
       style="
         display: flex;
@@ -43,7 +44,7 @@
       </div>
 
       <button
-        class="btn btn-outline-light"
+        class="btn btn-outline-secondary"
         *ngIf="this.userservice.search != ''"
         (click)="
           this.userservice.search = ''; this.userservice.setSearchClicked()
@@ -52,7 +53,7 @@
         <i class="fa fa-times" aria-hidden="true"></i>
       </button>
       <button
-        class="btn btn-outline-light"
+        class="btn btn-outline-secondary"
         *ngIf="this.userservice.search == ''"
       >
         <i class="fa fa-search" aria-hidden="true"></i>
@@ -73,7 +74,7 @@
       >
         <div class="loader_div"></div>
 
-        <h2 style="color: white">Loading user list...</h2>
+        <h2 style="color: black">Loading user list...</h2>
       </div>
 
       <div
@@ -96,7 +97,7 @@
         </div>
 
         <div *ngIf="this.userservice.users.length > 0" style="width: 100%">
-          <h2 style="color: white">
+          <h2 style="color: black">
             Search result for query " {{ this.userservice.search }} "
           </h2>
           <div
@@ -111,49 +112,80 @@
             <div *ngFor="let user of this.userservice.users">
               <div
                 *ngIf="user['_id'] != this.userid"
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  padding: 20px;
-                  width: 200px;
-                  float: left;
-                  border: 1px solid white;
-                  margin: 20px;
-                  border-radius: 20px;
-                  color: white;
-                "
+                style="display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+                padding: 15px;
+                width: 200px;
+                height: 250px;
+                float: left;
+                background-color: white;
+                border: 1px solid white;
+                margin: 20px;
+                box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+                  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+                border-radius: 20px;
+                color: black;
+              "
               >
                 <i
                   *ngIf="this.friendlist.includes(user['_id'])"
                   class="fa fa-times"
                   aria-hidden="true"
-                  style="margin-left: auto; cursor: pointer"
-                  (click)="this.userservice.removeFromFriends(user['_id'],user['name'])"
+                  style="margin-left: auto; cursor: pointer;color: red"
+                  (click)="
+                    this.userservice.removeFromFriends(
+                      user['_id'],
+                      user['name']
+                    )
+                  "
                 ></i>
-                
-                  <i class="fa fa-heart" aria-hidden="true" style="margin-left: auto;cursor: pointer;"
+
+                <i
+                  class="fa fa-heart"
+                  aria-hidden="true"
+                  style="margin-left: auto; cursor: pointer; color: red;"
                   *ngIf="!this.friendlist.includes(user['_id'])"
                   (click)="
                     this.userservice.addtofriends(
                       this.userservice.myid,
                       user['_id']
                     )
-                  "></i>
-                <i
+                  "
+                ></i>
+                
+            <img
+            src="../../assets/user-circle.svg"
+            style="width: 75px; height: 75px"
+          />
+                <!-- <i
                   class="fa fa-user-circle"
                   aria-hidden="true"
                   style="font-size: 50px"
-                ></i>
-                <p>{{ user["name"] }}</p>
-                <p class="lastseen">{{ user["email"] }}</p>
+                ></i> -->
+                <p style="font-weight: 500; font-size: 15px; margin-bottom: 2px;width: 95%;word-wrap: break-word;">{{ user["name"] }}</p>
+                <p class="lastseen" style="font-size: 13px; font-weight: 400; width: 95%;word-wrap: break-word;">@{{ user["email"] }}</p>
                 <button
-                  class="btn btn-outline-light"
-                  (click)="VideoCall(this.userservice.myid, user['_id'])"
-                >
-                  <i class="fa fa-phone ph" aria-hidden="true"></i>
-                </button>
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: green;
+                border: 1px solid darkgreen;
+                text-align: center;
+                display: flex;
+                align-items: center;
+              "
+              class="btn btn-outline-primary"
+              (click)="VideoCall(this.userservice.myid, user['_id'])"
+            >
+              <i
+                class="fa fa-phone ph"
+                style="color: white"
+                aria-hidden="true"
+              ></i>
+            </button>
               </div>
             </div>
           </div>
@@ -201,35 +233,65 @@
               display: flex;
               flex-direction: column;
               align-items: center;
-              justify-content: center;
-              padding: 20px;
+              justify-content: space-evenly;
+              padding: 15px;
               width: 200px;
+              height: 250px;
               float: left;
+              background-color: white;
               border: 1px solid white;
               margin: 20px;
+              box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+                rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
               border-radius: 20px;
-              color: white;
+              color: black;
             "
           >
             <i
               *ngIf="this.friendlist.includes(user['_id'])"
               class="fa fa-times"
               aria-hidden="true"
-              style="margin-left: auto; cursor: pointer"
-              (click)="this.userservice.removeFromFriends(user['_id'],user['name'])"
+              style="margin-left: auto; cursor: pointer; color: red"
+              (click)="
+                this.userservice.removeFromFriends(user['_id'], user['name'])
+              "
             ></i>
-            <i
+
+            <img
+              src="../../assets/user-circle.svg"
+              style="width: 75px; height: 75px"
+            />
+
+            <!-- <i
               class="fa fa-user-circle"
               aria-hidden="true"
               style="font-size: 50px"
-            ></i>
-            <p>{{ user["name"] }}</p>
-            <p class="lastseen">{{ user["email"] }}</p>
+            ></i> -->
+            <p style="font-weight: 500; font-size: 15px; margin-bottom: 2px;width: 95%;word-wrap: break-word;">
+              {{ user["name"] }}
+            </p>
+            <p class="lastseen" style="font-size: 13px; font-weight: 400;width: 95%;word-wrap: break-word;">
+              @{{ user["email"] }}
+            </p>
             <button
-              class="btn btn-outline-light"
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: green;
+                border: 1px solid darkgreen;
+                text-align: center;
+                display: flex;
+                align-items: center;
+              "
+              class="btn btn-outline-primary"
               (click)="VideoCall(this.userservice.myid, user['_id'])"
             >
-              <i class="fa fa-phone ph" aria-hidden="true"></i>
+              <i
+                class="fa fa-phone ph"
+                style="color: white"
+                aria-hidden="true"
+              ></i>
             </button>
           </div>
         </div>

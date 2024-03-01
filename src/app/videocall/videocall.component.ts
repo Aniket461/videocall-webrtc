@@ -122,9 +122,6 @@ SendMessages(){
      }
 
      ToggleChat(){
-      
-      console.log(this.callservice.stream.getVideoTracks().length);
-      console.log(this.callservice.stream.getVideoTracks());
  this.showchat = !this.showchat;
      }
 

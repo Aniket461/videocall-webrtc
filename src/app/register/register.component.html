@@ -1,32 +1,103 @@
-
-<div style="height: 100vh; width: 70%; margin-left: 15%; display: flex; justify-content: center; align-items: center;">
-<div class="container" style="margin: 20px; padding: 20px; border: 1px solid black; border-radius: 20px; height: fit-content;">
-    
-    <div style="text-align: center;">
-        <h1>Become a VChat member...</h1>
+<div
+  style="
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cdc1ff;
+    background-image: linear-gradient(316deg, #e5d9f2 0%, #e5d9f2 74%);
+  "
+>
+  <div
+    class="container"
+    style="
+      margin: 20px;
+      padding: 20px;
+      width: 50%;
+      border: 1px solid black;
+      border-radius: 20px;
+      height: fit-content;
+      border-radius: 15px;
+    background-color: white;
+    border: 1px solid white;
+    margin: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 20px;
+    color: black;
+    "
+  >
+    <div style="text-align: center">
+      <h1>Become a VChat member...</h1>
     </div>
-    <form style="margin-bottom: 10px;" (ngSubmit)="Register()">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" [(ngModel)]="name">
-          </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="email">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
-        </div>
-        <div style="text-align: center;"> <button [disabled]="this.userservice.isregisterclicked" type="submit" class="btn btn-outline-dark" style="margin-right: 5px;">Register <i *ngIf="!this.userservice.isregisterclicked" class="fa fa-user" aria-hidden="true"></i>
-          <i *ngIf="this.userservice.isregisterclicked" class="fa fa-spinner" aria-hidden="true"></i> </button>
-          </div>
-      </form>
-      
-      <div style="text-align: center; margin-top: 20px;">
-
-        <h5>Have an account?? <a href="/"><button type="button" class="btn btn-outline-dark">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button></a></h5>
-
+    <form style="margin-bottom: 10px" (ngSubmit)="Register()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter name"
+          [(ngModel)]="name"
+        />
       </div>
-</div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+          [(ngModel)]="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          id="exampleInputPassword1"
+          placeholder="Password"
+          [(ngModel)]="password"
+        />
+      </div>
+      <div style="text-align: center">
+        <button
+          [disabled]="this.userservice.isregisterclicked"
+          type="submit"
+          class="btn btn-outline-secondary"
+          style="margin-right: 5px"
+        >
+          Register
+          <i
+            *ngIf="!this.userservice.isregisterclicked"
+            class="fa fa-user"
+            aria-hidden="true"
+          ></i>
+          <i
+            *ngIf="this.userservice.isregisterclicked"
+            class="fa fa-spinner"
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px">
+      <h5 style="font-size: 15px;
+      font-weight: 400;">
+        Have an account??
+        <a href="/"
+          ><button type="button" class="btn btn-outline-secondary">
+            Login <i class="fa fa-sign-in" aria-hidden="true"></i></button
+        ></a>
+      </h5>
+    </div>
+  </div>
 </div>
