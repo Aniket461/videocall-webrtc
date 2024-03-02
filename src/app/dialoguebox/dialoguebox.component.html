@@ -1,8 +1,24 @@
 <h2 mat-dialog-title style="text-align: center;">Incoming Call....</h2>
 <mat-dialog-content style="text-align: center;">{{data.message}}</mat-dialog-content>
 <mat-dialog-actions style="justify-content: center;">
-  <button class="btn btn-outline-primary" style="margin-right: 5px;" [mat-dialog-close]="true" (click)="AnswerCall(true)" ><i class="fa fa-phone" aria-hidden="true"></i>
+  <button class="btn btn-outline-primary" style="width: 40px;
+  margin-right: 10px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: green;
+  border: 1px solid darkgreen;
+  text-align: center;
+  display: flex;
+  align-items: center;" [mat-dialog-close]="true" (click)="AnswerCall(true)" ><i class="fa fa-phone" style="color: white;" aria-hidden="true"></i>
   </button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button class="btn btn-outline-danger" [mat-dialog-close]="true" (click)="AnswerCall(false)"><i class="fa fa-times" aria-hidden="true"></i></button>
+  <button class="btn btn-outline-danger" [mat-dialog-close]="true" (click)="AnswerCall(false)" style="width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: red;
+  border: 1px solid darkred;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;"><i class="fa fa-times" aria-hidden="true" style="color: white;"></i></button>
 </mat-dialog-actions>
