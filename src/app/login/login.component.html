@@ -44,7 +44,7 @@
     </div>
     <div style="text-align: center">
       <button
-        [disabled]="this.userservice.isloginpressed"
+        [disabled]="this.userservice.isloginpressed || (this.email == '' || this.password == '')"
         type="submit"
         class="btn btn-outline-secondary"
         style="margin-right: 5px"
